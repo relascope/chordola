@@ -1,4 +1,4 @@
-# chord-recogniser
+# chord-recogniser by DOJOY - the way of joy
 
 Realtime musical chord recognition
 
@@ -46,3 +46,11 @@ Start the Jack Audio Engine, e.g. with QjackCtl
 Open the Graph in QjackCtl, where you will see a jack client named "Chord Recognizer DOJOY". Connect somethink to the input port. 
 
 DOYJOY!
+
+# Roadmap - DOJOY
+
+- auto-connect to System::capture
+- more backends
+- mobile app
+- write chords to file
+- Graphical user interface
