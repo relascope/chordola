@@ -1,16 +1,13 @@
 #include <iostream>
 
-#include "audiobackend.h"
 #include "VERSION.h"
+#include "audiobackend.h"
 
-int main(int argc, char *argv[])
-{
-    std::cout << "chord-rec console: Realtime Chord Recognition\nVersion: " << CHORD_REC_CONSOLE_VERSION << '\n';
+int main(int argc, char *argv[]) {
+  std::cout << "chord-rec console: Realtime Chord Recognition\nVersion: "
+            << CHORD_REC_CONSOLE_VERSION << '\n';
 
-    connectAudioBackend();
+  connectAudioBackend();
 
-//    startChordRecognition();
-
-
-    return 0;
+  return 0;
 }

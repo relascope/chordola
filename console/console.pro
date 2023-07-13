@@ -25,6 +25,7 @@ HEADERS += \
     ../Chord-Detector-and-Chromagram/src/Chromagram.h \
     VERSION.h \
     audiobackend.h \
+    chord.h
 
 
 

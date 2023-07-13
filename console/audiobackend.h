@@ -6,7 +6,7 @@
 
 class AudioBackendException final : public std::runtime_error {
 public:
-    AudioBackendException(const std::string& msg) : std::runtime_error{msg} {}
+  AudioBackendException(const std::string &msg) : std::runtime_error{msg} {}
 };
 
 void connectAudioBackend();
