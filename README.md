@@ -51,6 +51,7 @@ DOYJOY!
 
 - auto-connect to System::capture
 - more backends
+- MIDI output so that you kind of have a chord (maybe arp) which you can connect to your DAW or a synthesiser 
 - mobile app
 - write chords to file
 - Graphical user interface
