@@ -1,5 +1,7 @@
 QT -= gui
 
+TARGET = chord-recogniser-console
+
 CONFIG += c++11 console
 CONFIG -= app_bundle
 
