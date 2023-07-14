@@ -8,8 +8,8 @@ CONFIG -= app_bundle
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
-    ../Chord-Detector-and-Chromagram/src/ChordDetector.cpp \
-    ../Chord-Detector-and-Chromagram/src/Chromagram.cpp \
+    ../lib/Chord-Detector-and-Chromagram/src/ChordDetector.cpp \
+    ../lib/Chord-Detector-and-Chromagram/src/Chromagram.cpp \
         audiobackend.cpp \
         main.cpp \
 
@@ -21,8 +21,8 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 !isEmpty(target.path): INSTALLS += target
 
 HEADERS += \
-    ../Chord-Detector-and-Chromagram/src/ChordDetector.h \
-    ../Chord-Detector-and-Chromagram/src/Chromagram.h \
+    ../lib/Chord-Detector-and-Chromagram/src/ChordDetector.h \
+    ../lib/Chord-Detector-and-Chromagram/src/Chromagram.h \
     VERSION.h \
     audiobackend.h \
     chord.h

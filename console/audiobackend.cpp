@@ -4,8 +4,8 @@
 #include "audiobackend.h"
 #include "chord.h"
 
-#include "../Chord-Detector-and-Chromagram/src/ChordDetector.h"
-#include "../Chord-Detector-and-Chromagram/src/Chromagram.h"
+#include "../lib/Chord-Detector-and-Chromagram/src/ChordDetector.h"
+#include "../lib/Chord-Detector-and-Chromagram/src/Chromagram.h"
 
 #include <jack/jack.h>
 
