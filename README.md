@@ -25,6 +25,10 @@ or
     git submodule update --init --recursive
 
 
+Prerequisites
+-------------
+    apt install qtbase5-dev qt5-qmake make libjack-jackd2-dev libfftw3-dev -y
+
 Build
 -----
 
