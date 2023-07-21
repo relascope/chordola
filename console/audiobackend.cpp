@@ -88,15 +88,40 @@ void connect_ports(const char* src, const char* destination) {
 void connectSystemCapture() {
     const char **outports;
     if ((outports = jack_get_ports(jackClient, "system", NULL, JackPortIsOutput)) == NULL) {
-        throw AudioBackendException("Error getting system ports");
+        throw AudioBackendException("Error getting system capture ports");
     }
 
     const char* myPort = jack_port_name(input_port);
     size_t i = 0;
-    while (outports[i] != nullptr) {
+    while (outports != nullptr  && outports[i] != nullptr) {
         connect_ports(outports[i], myPort);
         ++i;
     }
+
+    jack_free(outports);
+}
+
+void connectPortsConnectingSystemPlayback() {
+    const char **systemPlaybackPorts;
+    if ((systemPlaybackPorts = jack_get_ports(jackClient, "system", nullptr, JackPortIsInput)) == nullptr) {
+        throw AudioBackendException("Error getting system playback ports");
+    }
+
+    const char* myPort = jack_port_name(input_port);
+    size_t i = 0;
+    while (systemPlaybackPorts != nullptr && systemPlaybackPorts[i] != nullptr) {
+        const char** portsConnectedToPlayback = jack_port_get_all_connections(jackClient, jack_port_by_name(jackClient, systemPlaybackPorts[i]));
+
+        size_t j = 0;
+        while (portsConnectedToPlayback != nullptr && portsConnectedToPlayback[j] != nullptr) {
+            connect_ports(portsConnectedToPlayback[j], myPort);
+            ++j;
+        }
+        jack_free(portsConnectedToPlayback);
+        ++i;
+    }
+
+    jack_free(systemPlaybackPorts);
 }
 
 void connectAudioBackend() {
@@ -120,6 +145,7 @@ void connectAudioBackend() {
   }
 
   connectSystemCapture();
+  connectPortsConnectingSystemPlayback();
 
   chromagram.setSamplingFrequency(jack_get_sample_rate(jackClient));
   chromagram.setInputAudioFrameSize(jack_get_buffer_size(jackClient));
