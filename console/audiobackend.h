@@ -12,7 +12,4 @@ public:
 
 void connectAudioBackend();
 
-void connectSystemOutputs();
-void connectSystemInputConnections();
-
 #endif // AUDIOBACKEND_H

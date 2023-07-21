@@ -14,6 +14,7 @@
 #include <stdlib.h>
 #include <string>
 #include <sstream>
+#include <thread>
 #include <unistd.h>
 
 int frameSize = 512;
@@ -75,6 +76,10 @@ void connect_ports(const char* src, const char* destination) {
     const char* srcType = jack_port_type(jack_port_by_name(jackClient, src));
     const char* destType = jack_port_type(jack_port_by_name(jackClient, destination));
 
+    if (jack_port_connected_to(jack_port_by_name(jackClient, src), destination)) {
+        return;
+    }
+
     if (std::string(srcType)   != std::string(destType))
         return;
 
@@ -124,6 +129,14 @@ void connectPortsConnectingSystemPlayback() {
     jack_free(systemPlaybackPorts);
 }
 
+void autoConnectPorts() {
+    while (true) {
+    connectSystemCapture();
+    connectPortsConnectingSystemPlayback();
+    std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+    }
+}
+
 void connectAudioBackend() {
   if ((jackClient = jack_client_new("Chord Recognizer DOJOY")) == 0) {
     std::cerr << "jack not running?\n";
@@ -144,8 +157,7 @@ void connectAudioBackend() {
     throw AudioBackendException("Jack Client cannot be activated");
   }
 
-  connectSystemCapture();
-  connectPortsConnectingSystemPlayback();
+  std::thread autoConnect(autoConnectPorts);
 
   chromagram.setSamplingFrequency(jack_get_sample_rate(jackClient));
   chromagram.setInputAudioFrameSize(jack_get_buffer_size(jackClient));
