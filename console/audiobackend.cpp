@@ -13,6 +13,7 @@
 #include <iostream>
 #include <stdlib.h>
 #include <string>
+#include <sstream>
 #include <unistd.h>
 
 int frameSize = 512;
@@ -34,11 +35,11 @@ void printChroma(std::vector<double> c) {
 
 jack_port_t *input_port;
 
-void jack_shutdown(void *arg) {
+void jack_shutdown(void *) {
   std::cerr << "jack shutting down, so we do too! DOJOY something else!\n";
 }
 
-int jack_process_callback(jack_nframes_t nframes, void *arg) {
+int jack_process_callback(jack_nframes_t nframes, void *) {
   jack_default_audio_sample_t *inputFrames =
       (jack_default_audio_sample_t *)jack_port_get_buffer(input_port, nframes);
 
@@ -63,33 +64,68 @@ int jack_process_callback(jack_nframes_t nframes, void *arg) {
 
   return 0;
 }
+
+
+jack_client_t *jackClient;
+
+
+
+
+void connect_ports(const char* src, const char* destination) {
+    const char* srcType = jack_port_type(jack_port_by_name(jackClient, src));
+    const char* destType = jack_port_type(jack_port_by_name(jackClient, destination));
+
+    if (std::string(srcType)   != std::string(destType))
+        return;
+
+    if (jack_connect(jackClient, src, destination) != 0) {
+        std::stringstream ss;
+        ss << "Port connection failed. " << src << " to " << destination << " \n";
+        throw AudioBackendException(ss.str());
+    }
+}
+
+void connectSystemCapture() {
+    const char **outports;
+    if ((outports = jack_get_ports(jackClient, "system", NULL, JackPortIsOutput)) == NULL) {
+        throw AudioBackendException("Error getting system ports");
+    }
+
+    const char* myPort = jack_port_name(input_port);
+    size_t i = 0;
+    while (outports[i] != nullptr) {
+        connect_ports(outports[i], myPort);
+        ++i;
+    }
+}
+
 void connectAudioBackend() {
-
-  jack_client_t *client;
-
-  if ((client = jack_client_new("Chord Recognizer DOJOY")) == 0) {
+  if ((jackClient = jack_client_new("Chord Recognizer DOJOY")) == 0) {
     std::cerr << "jack not running?\n";
     throw AudioBackendException("Could not register a new Jack Client");
   }
 
-  jack_set_process_callback(client, jack_process_callback, 0);
-  jack_on_shutdown(client, jack_shutdown, 0);
+  jack_set_process_callback(jackClient, jack_process_callback, 0);
+  jack_on_shutdown(jackClient, jack_shutdown, 0);
 
   std::cout << "engine sample rate: %" << PRIu32 << "\n"
-            << jack_get_sample_rate(client);
+            << jack_get_sample_rate(jackClient);
 
-  input_port = jack_port_register(client, "input", JACK_DEFAULT_AUDIO_TYPE,
+  input_port = jack_port_register(jackClient, "input", JACK_DEFAULT_AUDIO_TYPE,
                                   JackPortIsInput, 0);
-  if (jack_activate(client)) {
+
+  if (jack_activate(jackClient)) {
     std::cerr << "cannot activate client\n";
     throw AudioBackendException("Jack Client cannot be activated");
   }
 
-  chromagram.setSamplingFrequency(jack_get_sample_rate(client));
-  chromagram.setInputAudioFrameSize(jack_get_buffer_size(client));
+  connectSystemCapture();
+
+  chromagram.setSamplingFrequency(jack_get_sample_rate(jackClient));
+  chromagram.setInputAudioFrameSize(jack_get_buffer_size(jackClient));
 
   sleep(1000);
-  jack_client_close(client);
+  jack_client_close(jackClient);
   exit(0);
 }
 

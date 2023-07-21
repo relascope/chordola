@@ -9,6 +9,10 @@ public:
   AudioBackendException(const std::string &msg) : std::runtime_error{msg} {}
 };
 
+
 void connectAudioBackend();
+
+void connectSystemOutputs();
+void connectSystemInputConnections();
 
 #endif // AUDIOBACKEND_H
