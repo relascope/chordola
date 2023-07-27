@@ -1,15 +1,12 @@
 #ifndef AUDIOBACKEND_H
 #define AUDIOBACKEND_H
 
-#include <stdexcept>
-#include <string>
+#include "chord.h"
 
-class AudioBackendException final : public std::runtime_error {
-public:
-  AudioBackendException(const std::string &msg) : std::runtime_error{msg} {}
-};
-
+typedef void (*ChordListener)(Chord);
 
 void connectAudioBackend();
+
+void registerChordListener(ChordListener);
 
 #endif // AUDIOBACKEND_H

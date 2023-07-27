@@ -2,10 +2,10 @@
 #define AUDIOBACKEND_CPP
 
 #include "audiobackend.h"
-#include "chord.h"
 
 #include "../lib/Chord-Detector-and-Chromagram/src/ChordDetector.h"
 #include "../lib/Chord-Detector-and-Chromagram/src/Chromagram.h"
+#include "audiobackendexception.h"
 
 #include <jack/jack.h>
 
@@ -16,17 +16,25 @@
 #include <sstream>
 #include <thread>
 #include <unistd.h>
+#include <vector>
+
+std::vector<ChordListener> chordListeners;
+
+void registerChordListener(ChordListener chordListener) {
+    chordListeners.push_back(chordListener);
+}
+
+void notifyListener(Chord chord) {
+    for (const auto& listener : chordListeners) {
+        listener(chord);
+    }
+}
 
 int frameSize = 512;
 int sampleRate = 44100;
 
 Chromagram chromagram(frameSize, sampleRate);
 
-std::string notes[] = {"c",   "cis", "d",   "dis", "e",   "f",
-                       "fis", "g",   "gis", "a",   "ais", "h"};
-
-std::string chordQualityNames[] = {"Minor",    "Major",       "Suspended",
-                                   "Dominant", "Dimished5th", "Augmented5th"};
 
 void printChroma(std::vector<double> c) {
   std::cout << "______" << std::endl;
@@ -56,11 +64,8 @@ int jack_process_callback(jack_nframes_t nframes, void *) {
     static ChordDetector chordDetector;
     chordDetector.detectChord(chroma);
 
-    // TODOJOY decide if we want to print everything or only if a new chord is
-    // detected - configurable?
-    std::cout << notes[chordDetector.rootNote] << " "
-              << chordQualityNames[chordDetector.quality] << " "
-              << chordDetector.intervals << std::endl;
+    Chord chord { chordDetector.rootNote, chordDetector.quality, chordDetector.intervals};
+    notifyListener(chord);
   }
 
   return 0;

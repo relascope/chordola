@@ -1,7 +1,10 @@
 #ifndef CHORD_H
 #define CHORD_H
 
-/* Chord to be compatible with the actual choosen Chord Recogniser */
+#include <ostream>
+#include <string>
+
+/* Chord to be compatible with the actual chosen Chord Recogniser */
 typedef struct Chord {
   int rootNote;
   int quality;
@@ -15,10 +18,10 @@ typedef struct Chord {
     return intervals < other.intervals;
   }
 
-  bool operator==(const Chord &other) const {
-    return rootNote == other.rootNote && quality == other.quality &&
-           intervals == other.intervals;
-  }
+  bool operator==(const Chord &other) const;
+
+  friend std::ostream& operator<<(std::ostream& os, Chord const & chord);
+
 } Chord;
 
 #endif // CHORD_H
