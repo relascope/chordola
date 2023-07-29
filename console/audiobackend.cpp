@@ -167,7 +167,10 @@ void connectAudioBackend() {
   chromagram.setSamplingFrequency(jack_get_sample_rate(jackClient));
   chromagram.setInputAudioFrameSize(jack_get_buffer_size(jackClient));
 
-  sleep(1000);
+  while (true) {
+    sleep(10000);
+  }
+
   jack_client_close(jackClient);
   exit(0);
 }

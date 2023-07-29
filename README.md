@@ -27,33 +27,33 @@ or
 
 Prerequisites
 -------------
-    apt install qtbase5-dev qt5-qmake make libjack-jackd2-dev libfftw3-dev -y
+    apt install cmake make libjack-jackd2-dev libfftw3-dev -y
 
 Build
 -----
 
-The easiest way is to use Qt Creator and load ./console/console.pro
-
-The fastest way is 
-
     cd console
-    qmake .
+    cmake .
     make
-
 
 Usage
 =====
-Start the Jack Audio Engine, e.g. with QjackCtl
+Start the Jack Audio Engine
 
     ./chord-recogniser
 
-Open the Graph in QjackCtl, where you will see a jack client named "Chord Recognizer DOJOY". Connect somethink to the input port. 
+chord-recogniser connects at startup to:
+* every readable system client (system capture)
+* everything that has a connection to system playback
+
+So, any microphone or guitar will be connected as well as a media player which is currently playing. 
+
+The connections will be periodically reestablished.  
 
 DOYJOY!
 
 # Roadmap - DOJOY
 
-- auto-connect to System::capture
 - more backends
 - MIDI output so that you kind of have a chord (maybe arp) which you can connect to your DAW or a synthesiser 
 - mobile app
