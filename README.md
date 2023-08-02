@@ -46,6 +46,8 @@ Connect a JACK audio source (Graph of QJackCtl)
 
 DOYJOY!
 
+If it is boring to connect every day, try [aj-snapshot](https://sourceforge.net/projects/aj-snapshot/).
+
 # Roadmap - DOJOY
 
 - more backends
