@@ -6,21 +6,21 @@
 
 /* Chord to be compatible with the actual chosen Chord Recogniser */
 typedef struct Chord {
-  int rootNote;
-  int quality;
-  int intervals;
+    int rootNote;
+    int quality;
+    int intervals;
 
-  bool operator<(const Chord &other) const {
-    if (rootNote < other.rootNote)
-      return true;
-    if (quality > other.quality)
-      return false;
-    return intervals < other.intervals;
-  }
+    bool operator<(const Chord &other) const {
+        if (rootNote < other.rootNote)
+            return true;
+        if (quality > other.quality)
+            return false;
+        return intervals < other.intervals;
+    }
 
-  bool operator==(const Chord &other) const;
+    bool operator==(const Chord &other) const;
 
-  friend std::ostream& operator<<(std::ostream& os, Chord const & chord);
+    friend std::ostream &operator<<(std::ostream &os, Chord const &chord);
 
 } Chord;
 

@@ -38,17 +38,11 @@ Build
 
 Usage
 =====
-Start the Jack Audio Engine
+Start the Jack Audio Engine (e.g. with QJackCtl)
 
     ./chord-recogniser
 
-chord-recogniser connects at startup to:
-* every readable system client (system capture)
-* everything that has a connection to system playback
-
-So, any microphone or guitar will be connected as well as a media player which is currently playing. 
-
-The connections will be periodically reestablished.  
+Connect a JACK audio source (Graph of QJackCtl)
 
 DOYJOY!
 
