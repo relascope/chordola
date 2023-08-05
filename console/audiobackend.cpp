@@ -34,13 +34,27 @@ int sampleRate = 44100;
 
 Chromagram chromagram(frameSize, sampleRate);
 
-
 void printChroma(std::vector<double> c) {
     std::cout << "______" << std::endl;
     for (int i = 0; i < 12; i++)
         std::cout << c[i] << std::endl;
 }
 
+void processFrames(double *frames) {
+    chromagram.processAudioFrame(frames);
+
+    if (chromagram.isReady()) {
+        std::vector<double> chroma = chromagram.getChromagram();
+        static ChordDetector chordDetector;
+        chordDetector.detectChord(chroma);
+
+        Chord chord{chordDetector.rootNote, chordDetector.quality, chordDetector.intervals};
+        notifyListener(chord);
+    }
+}
+
+
+jack_client_t *jackClient;
 jack_port_t *input_port;
 
 void jack_shutdown(void *) {
@@ -56,23 +70,10 @@ int jack_process_callback(jack_nframes_t nframes, void *) {
         frames[i] = inputFrames[i];
     }
 
-    chromagram.processAudioFrame(frames);
-
-    if (chromagram.isReady()) {
-        std::vector<double> chroma = chromagram.getChromagram();
-        static ChordDetector chordDetector;
-        chordDetector.detectChord(chroma);
-
-        Chord chord{chordDetector.rootNote, chordDetector.quality, chordDetector.intervals};
-        notifyListener(chord);
-    }
+    processFrames(frames);
 
     return 0;
 }
-
-
-jack_client_t *jackClient;
-
 
 void connect_ports(const char *src, const char *destination) {
     const char *srcType = jack_port_type(jack_port_by_name(jackClient, src));
@@ -140,7 +141,7 @@ void autoConnectPorts() {
     }
 }
 
-void connectAudioBackend() {
+void connectAudioBackend(std::string clientName) {
     if ((jackClient = jack_client_new("Chord Recognizer DOJOY")) == 0) {
         std::cerr << "jack not running?\n";
         throw AudioBackendException("Could not register a new Jack Client");

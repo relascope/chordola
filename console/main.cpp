@@ -8,7 +8,7 @@ int main(int argc, char *argv[]) {
             << CHORD_REC_CONSOLE_VERSION << '\n';
 
     registerChordListener([] (Chord c) { std::cout << c; });
-  connectAudioBackend();
+    connectAudioBackend(argv[0]);
 
   return 0;
 }

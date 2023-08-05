@@ -11,6 +11,9 @@ bool Chord::operator==(const Chord &other) const {
 std::ostream &operator<<(std::ostream &os, const Chord &chord) {
     os << noteNames[chord.rootNote];
 
+    if (chord.quality == 0)
+        os << "m";
+
     if (chord.quality == 2)
         os << "sus";
     else if (chord.quality == 4)
@@ -20,6 +23,9 @@ std::ostream &operator<<(std::ostream &os, const Chord &chord) {
 
     if (chord.intervals != 0)
         os << chord.intervals;
+
+
+    os << "\t" << noteNames[chord.rootNote] << " " << chordQualityNames[chord.quality] << " " << chord.intervals;
 
     os << '\n';
 

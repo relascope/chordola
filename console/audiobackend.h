@@ -5,7 +5,7 @@
 
 typedef void (*ChordListener)(Chord);
 
-void connectAudioBackend();
+void connectAudioBackend(std::string clientName);
 
 void registerChordListener(ChordListener);
 
