@@ -55,3 +55,8 @@ If it is boring to connect every day, try [aj-snapshot](https://sourceforge.net/
 - mobile app
 - write chords to file
 - Graphical user interface
+
+# Credits
+
+Adam Stark developed the math behind in a beautiful library [Chord-Detector-and-Chromagram](https://github.com/adamstark/Chord-Detector-and-Chromagram)
+
