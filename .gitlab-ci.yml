@@ -1,0 +1,20 @@
+# gitlab pipeline
+image: gcc
+
+stages:          # List of stages for jobs, and their order of execution
+  - build
+
+build-job:       # This job runs in the build stage, which runs first.
+  stage: build
+  script:
+    - echo "getting dependencies"
+    - apt update
+    - apt install cmake make libjack-jackd2-dev libfftw3-dev libatomic-ops-dev -y
+    - git submodule update --init --recursive
+    - echo "Compiling the code..."
+    - cd ./console
+    - mkdir build
+    - cd ./build
+    - cmake ..
+    - make -j3
+    - echo "Compile complete."
