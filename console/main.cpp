@@ -30,7 +30,9 @@ int main(int argc, char *argv[]) {
   std::thread consume(consumeThread);
 
   registerChordListener(&ChordArrived);
-  connectAudioBackend(argv[0]);
+
+  std::string clientName(argv[0]);
+  connectAudioBackend(clientName);
 
   return 0;
 }
