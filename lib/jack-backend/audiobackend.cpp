@@ -3,8 +3,8 @@
 
 #include "audiobackend.h"
 
-#include "../lib/Chord-Detector-and-Chromagram/src/ChordDetector.h"
-#include "../lib/Chord-Detector-and-Chromagram/src/Chromagram.h"
+#include "../Chord-Detector-and-Chromagram/src/ChordDetector.h"
+#include "../Chord-Detector-and-Chromagram/src/Chromagram.h"
 #include "audiobackendexception.h"
 
 #include <jack/jack.h>
@@ -63,7 +63,7 @@ void jack_shutdown(void *) {
 
 int jack_process_callback(jack_nframes_t nframes, void *) {
   jack_default_audio_sample_t *inputFrames =
-      (jack_default_audio_sample_t *)jack_port_get_buffer(input_port, nframes);
+      (jack_default_audio_sample_t *) jack_port_get_buffer(input_port, nframes);
 
   double *frames = new double[nframes];
   for (unsigned int i = 0; i < nframes; ++i) {
@@ -126,7 +126,7 @@ void connectPortsConnectingSystemPlayback() {
 
     size_t j = 0;
     while (portsConnectedToPlayback != nullptr &&
-           portsConnectedToPlayback[j] != nullptr) {
+        portsConnectedToPlayback[j] != nullptr) {
       connect_ports(portsConnectedToPlayback[j], myPort);
       ++j;
     }
@@ -156,7 +156,7 @@ void connectAudioBackend(const std::string &clientName) {
     throw AudioBackendException("Could not register a new Jack Client");
   }
 
-  (void)jack_set_process_callback(jackClient, jack_process_callback, 0);
+  (void) jack_set_process_callback(jackClient, jack_process_callback, 0);
   jack_on_shutdown(jackClient, jack_shutdown, 0);
 
   std::cout << "engine sample rate: %" << PRIu32 << "\n"

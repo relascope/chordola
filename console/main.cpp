@@ -3,9 +3,9 @@
 #include <iostream>
 #include <thread>
 
+#include "../lib/jack-backend/audiobackend.h"
+#include "../lib/jack-backend/chord.h"
 #include "VERSION.h"
-#include "audiobackend.h"
-#include "chord.h"
 
 static std::atomic<Chord> actChord;
 
