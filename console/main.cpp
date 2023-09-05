@@ -34,5 +34,7 @@ int main(int argc, char *argv[]) {
   std::string clientName(argv[0]);
   connectAudioBackend(clientName);
 
+  consume.join();
+
   return 0;
 }

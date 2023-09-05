@@ -72,6 +72,8 @@ int jack_process_callback(jack_nframes_t nframes, void *) {
 
   processFrames(frames);
 
+  delete[] frames;
+
   return 0;
 }
 
@@ -147,11 +149,11 @@ void autoConnectPorts() {
 
 void connectAudioBackend(const std::string &clientName) {
 
-  jack_status_t *status;
+  std::unique_ptr<jack_status_t> status;
 
-  if ((jackClient = jack_client_open(clientName.c_str(),
-                                     JackOptions::JackNullOption, status)) ==
-      nullptr) {
+  jackClient = jack_client_open(clientName.c_str(),
+                                JackOptions::JackNullOption, status.get());
+  if (jackClient == nullptr) {
     std::cerr << "jack not running?\n";
     throw AudioBackendException("Could not register a new Jack Client");
   }
