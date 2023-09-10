@@ -16,6 +16,7 @@
 #include <thread>
 #include <unistd.h>
 #include <vector>
+namespace jack_backend {
 
 std::vector<ChordListener> chordListeners;
 
@@ -182,5 +183,5 @@ void connectAudioBackend(const std::string &clientName) {
   jack_client_close(jackClient);
   exit(0);
 }
-
+}
 #endif // AUDIOBACKEND_CPP

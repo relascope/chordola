@@ -3,10 +3,13 @@
 
 #include "chord.h"
 
+namespace jack_backend {
+
 typedef void (*ChordListener)(Chord);
 
 void connectAudioBackend(const std::string &clientName);
 
 void registerChordListener(ChordListener);
 
+}
 #endif // AUDIOBACKEND_H

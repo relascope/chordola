@@ -29,10 +29,10 @@ int main(int argc, char *argv[]) {
 
   std::thread consume(consumeThread);
 
-  registerChordListener(&ChordArrived);
+  jack_backend::registerChordListener(&ChordArrived);
 
   std::string clientName(argv[0]);
-  connectAudioBackend(clientName);
+  jack_backend::connectAudioBackend(clientName);
 
   consume.join();
 
