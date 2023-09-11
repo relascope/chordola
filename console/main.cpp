@@ -5,6 +5,7 @@
 
 #include "../lib/jack-backend/audiobackend.h"
 #include "../lib/jack-backend/chord.h"
+#include "../lib/jack-backend/chord_listener.h"
 #include "VERSION.h"
 
 static std::atomic<Chord> actChord;
@@ -29,7 +30,7 @@ int main(int argc, char *argv[]) {
 
   std::thread consume(consumeThread);
 
-  jack_backend::registerChordListener(&ChordArrived);
+  chord_recogniser::registerChordListener(&ChordArrived);
 
   std::string clientName(argv[0]);
   jack_backend::connectAudioBackend(clientName);
