@@ -7,14 +7,16 @@
 namespace chord_recogniser {
 std::vector<ChordListener> chord_listeners;
 
-void registerChordListener(const ChordListener &chord_listener) {
-  chord_listeners.push_back(chord_listener);
+void register_chord_listener(const ChordListener& chord_listener)
+{
+    chord_listeners.push_back(chord_listener);
 }
 
-void notifyListener(Chord chord) {
-  for (const auto &listener : chord_listeners) {
-    listener(chord);
-  }
+void notify_listener(Chord chord)
+{
+    for (const auto& listener : chord_listeners) {
+        listener(chord);
+    }
 }
 
 }

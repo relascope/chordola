@@ -8,9 +8,9 @@
 #include "chord.h"
 
 namespace chord_recogniser {
-typedef void (*ChordListener)(Chord);
-void registerChordListener(const ChordListener &);
-void notifyListener(Chord chord);
+typedef void (* ChordListener)(Chord);
+void register_chord_listener(const ChordListener&);
+void notify_listener(Chord chord);
 }
 
 #endif //CHORD_RECOGNISER_CONSOLE_LIB_JACK_BACKEND_CHORD_LISTENER_H_

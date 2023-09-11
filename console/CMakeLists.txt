@@ -5,6 +5,9 @@ project(chord-recogniser-console LANGUAGES CXX)
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+set(CMAKE_CXX_FLAGS -Wall)
+set(CMAKE_CXX_FLAGS -Wextra)
+
 add_executable(chord-recogniser-console main.cpp ../lib/jack-backend/audiobackend.cpp ../lib/jack-backend/audiobackend.h ../lib/jack-backend/chord.h ../lib/Chord-Detector-and-Chromagram/src/Chromagram.cpp ../lib/Chord-Detector-and-Chromagram/src/Chromagram.h ../lib/Chord-Detector-and-Chromagram/src/ChordDetector.h ../lib/Chord-Detector-and-Chromagram/src/ChordDetector.cpp
         ../lib/jack-backend/chord.cpp
         ../lib/jack-backend/chord_listener.cpp

@@ -18,6 +18,7 @@
 #include <thread>
 #include <unistd.h>
 #include <vector>
+
 namespace jack_backend {
 
 jack_client_t* jackClient;
@@ -36,18 +37,18 @@ void printChroma(std::vector<double> c)
         std::cout << c[i] << std::endl;
 }
 
-std::vector<unsigned int> get_most_significant_notes(const std::vector<double>& chromagram)
+std::vector<unsigned char> get_most_significant_notes(const std::vector<double>& chromagram)
 {
     // Create a vector of pairs with (value, index)
-    std::vector<std::pair<int, int>> value_index_pairs;
-    for (int i = 0; i<chromagram.size(); ++i)
-        value_index_pairs.emplace_back(chromagram[i], i);
-
+    std::vector<std::pair<double, unsigned char>> value_index_pairs;
+    for (size_t i = 0; i<chromagram.size(); ++i) {
+        value_index_pairs.emplace_back(chromagram[i], static_cast<unsigned char>(i));
+    }
 
     // Sort the vector of pairs in descending order by value
     std::sort(value_index_pairs.rbegin(), value_index_pairs.rend());
 
-    std::vector<unsigned int> notes_ordered;
+    std::vector<unsigned char> notes_ordered;
     for (const auto& pair : value_index_pairs) {
         notes_ordered.push_back(pair.second);
     }
@@ -63,17 +64,16 @@ void shrink_vector(std::vector<T>& vector, size_t max_size)
     }
 }
 
-void write_midi_chord(const std::vector<double>& chromagram, jack_nframes_t nframes)
+void write_midi_chord(const std::vector<double>& chromagram_vector, jack_nframes_t number_of_frames)
 {
-    constexpr const size_t kNumberOfNotesForChord = 3;
-    // TODOJOY check the distance of the notes, maybe set the notes down an octave???
-    // save the old notes and place note offs.
-    std::vector<unsigned int> new_notes_ordered = get_most_significant_notes(chromagram);
-    shrink_vector(new_notes_ordered, kNumberOfNotesForChord);
+    constexpr const size_t k_number_of_notes_for_chord = 3;
 
-    static std::vector<unsigned int> old_notes_ordered;
+    std::vector<unsigned char> new_notes_ordered = get_most_significant_notes(chromagram_vector);
+    shrink_vector(new_notes_ordered, k_number_of_notes_for_chord);
 
-    void* midi_out_buffer = jack_port_get_buffer(midi_output_port_, nframes);
+    static std::vector<unsigned char> old_notes_ordered;
+
+    void* midi_out_buffer = jack_port_get_buffer(midi_output_port_, number_of_frames);
     jack_midi_clear_buffer(midi_out_buffer);
 
     for (unsigned int i : old_notes_ordered) {
@@ -81,7 +81,7 @@ void write_midi_chord(const std::vector<double>& chromagram, jack_nframes_t nfra
         buffer = jack_midi_event_reserve(midi_out_buffer, 0, 3);
         buffer[2] = 108;// velocity
         buffer[1] = 60+i; // note starting with C4
-        buffer[0] = 0x80; // note off
+        buffer[0] = 0x80U; // note off
     }
 
     for (unsigned int i : new_notes_ordered) {
@@ -89,132 +89,57 @@ void write_midi_chord(const std::vector<double>& chromagram, jack_nframes_t nfra
         buffer = jack_midi_event_reserve(midi_out_buffer, 0, 3);
         buffer[2] = 108;// velocity
         buffer[1] = 60+i; // note starting with C4
-        buffer[0] = 0x90; // note on (note off is 0x80)
+        buffer[0] = 0x90U; // note on (note off is 0x80)
     }
 
     old_notes_ordered = new_notes_ordered;
 }
 
-void processFrames(double* frames, jack_nframes_t nframes)
+void processFrames(double* frames, jack_nframes_t number_of_frames)
 {
     chromagram.processAudioFrame(frames);
 
     if (chromagram.isReady()) {
         std::vector<double> chroma = chromagram.getChromagram();
 
-        write_midi_chord(chroma, nframes);
+        write_midi_chord(chroma, number_of_frames);
 
-        static ChordDetector chordDetector;
-        chordDetector.detectChord(chroma);
+        static ChordDetector chord_detector;
+        chord_detector.detectChord(chroma);
 
-        Chord chord{chordDetector.rootNote, chordDetector.quality,
-                    chordDetector.intervals};
-        chord_recogniser::notifyListener(chord);
+        Chord chord{chord_detector.rootNote, chord_detector.quality,
+                    chord_detector.intervals};
+        chord_recogniser::notify_listener(chord);
     }
 }
 
 void jack_shutdown(void*)
 {
-    std::cerr << "jack shutting down, so we do too! DOJOY something else!\n";
+    std::cerr << "jack shutting down, so we do too! DoJoy something else!\n";
 }
 
-int jack_process_callback(jack_nframes_t nframes, void*)
+int jack_process_callback(jack_nframes_t number_of_frames, void*)
 {
-    auto inputFrames =
-            (jack_default_audio_sample_t*) jack_port_get_buffer(audio_input_port, nframes);
+    auto input_frames =
+            static_cast<jack_default_audio_sample_t*> ( jack_port_get_buffer(audio_input_port, number_of_frames));
 
-    double* frames = new double[nframes];
-    for (unsigned int i = 0; i<nframes; ++i) {
-        frames[i] = inputFrames[i];
+    auto* frames = new double[number_of_frames];
+    for (unsigned int i = 0; i<number_of_frames; ++i) {
+        frames[i] = input_frames[i];
     }
 
-    processFrames(frames, nframes);
+    processFrames(frames, number_of_frames);
 
     delete[] frames;
 
     return 0;
 }
 
-void connect_ports(const char* src, const char* destination)
+void connect_audio_backend(const std::string& client_name)
 {
-    const char* srcType = jack_port_type(jack_port_by_name(jackClient, src));
-    const char* destType =
-            jack_port_type(jack_port_by_name(jackClient, destination));
-
-    if (jack_port_connected_to(jack_port_by_name(jackClient, src), destination)) {
-        return;
-    }
-
-    if (std::string(srcType)!=std::string(destType))
-        return;
-
-    if (jack_connect(jackClient, src, destination)!=0) {
-        std::stringstream ss;
-        ss << "Port connection failed. " << src << " to " << destination << " \n";
-        throw AudioBackendException(ss.str());
-    }
-}
-
-void connectSystemCapture()
-{
-    const char** outports;
-    if ((outports = jack_get_ports(jackClient, "system", NULL,
-            JackPortIsOutput))==NULL) {
-        throw AudioBackendException("Error getting system capture ports");
-    }
-
-    const char* myPort = jack_port_name(audio_input_port);
-    size_t i = 0;
-    while (outports!=nullptr && outports[i]!=nullptr) {
-        connect_ports(outports[i], myPort);
-        ++i;
-    }
-
-    jack_free(outports);
-}
-
-void connectPortsConnectingSystemPlayback()
-{
-    const char** systemPlaybackPorts;
-    if ((systemPlaybackPorts = jack_get_ports(jackClient, "system", nullptr,
-            JackPortIsInput))==nullptr) {
-        throw AudioBackendException("Error getting system playback ports");
-    }
-
-    const char* myPort = jack_port_name(audio_input_port);
-    size_t i = 0;
-    while (systemPlaybackPorts!=nullptr && systemPlaybackPorts[i]!=nullptr) {
-        const char** portsConnectedToPlayback = jack_port_get_all_connections(
-                jackClient, jack_port_by_name(jackClient, systemPlaybackPorts[i]));
-
-        size_t j = 0;
-        while (portsConnectedToPlayback!=nullptr &&
-                portsConnectedToPlayback[j]!=nullptr) {
-            connect_ports(portsConnectedToPlayback[j], myPort);
-            ++j;
-        }
-        jack_free(portsConnectedToPlayback);
-        ++i;
-    }
-
-    jack_free(systemPlaybackPorts);
-}
-
-void autoConnectPorts()
-{
-    while (true) {
-        connectSystemCapture();
-        connectPortsConnectingSystemPlayback();
-        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
-    }
-}
-
-void connectAudioBackend(const std::string& clientName)
-{
-
     std::unique_ptr<jack_status_t> status;
 
-    jackClient = jack_client_open(clientName.c_str(),
+    jackClient = jack_client_open(client_name.c_str(),
             JackOptions::JackNullOption, status.get());
     if (jackClient==nullptr) {
         std::cerr << "jack not running?\n";
