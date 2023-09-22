@@ -2,6 +2,7 @@
 #define AUDIOBACKEND_CPP
 
 #include "audiobackend.h"
+#include "chord.h"
 
 #include "../Chord-Detector-and-Chromagram/src/ChordDetector.h"
 #include "../Chord-Detector-and-Chromagram/src/Chromagram.h"
@@ -36,8 +37,16 @@ void printChroma(std::vector<double> c)
     for (int i = 0; i<12; i++)
         std::cout << c[i] << std::endl;
 }
+template<typename T>
+void shrink_vector(std::vector<T>& vector, size_t max_size)
+{
+    if (vector.size()>max_size) {
+        vector.erase(vector.begin()+max_size, vector.end());
+    }
+}
 
-std::vector<unsigned char> get_most_significant_notes(const std::vector<double>& chromagram)
+std::vector<unsigned char> get_most_significant_notes(const std::vector<double>& chromagram,
+        chord_recogniser::Chord chord)
 {
     // Create a vector of pairs with (value, index)
     std::vector<std::pair<double, unsigned char>> value_index_pairs;
@@ -53,46 +62,72 @@ std::vector<unsigned char> get_most_significant_notes(const std::vector<double>&
         notes_ordered.push_back(pair.second);
     }
 
+    // the most significant is most likely the melody (voice), which we do not want to use
+    // TODOJOY we may try to remove the first note for Chord-Detection too
+    notes_ordered.erase(notes_ordered.begin());
+
+    shrink_vector(notes_ordered, 2);
+
     return notes_ordered;
 }
 
-template<typename T>
-void shrink_vector(std::vector<T>& vector, size_t max_size)
+void send_midi_note(void* midi_out_buffer, unsigned int midi_number_in_octave, bool note_on = true);
+void send_all_notes_off(void* midi_out_buffer);
+void write_midi_chord(const std::vector<double>& chromagram_vector, chord_recogniser::Chord chord, jack_nframes_t
+number_of_frames
+)
 {
-    if (vector.size()>max_size) {
-        vector.erase(vector.begin()+max_size, vector.end());
-    }
-}
-
-void write_midi_chord(const std::vector<double>& chromagram_vector, jack_nframes_t number_of_frames)
-{
-    constexpr const size_t k_number_of_notes_for_chord = 3;
-
-    std::vector<unsigned char> new_notes_ordered = get_most_significant_notes(chromagram_vector);
-    shrink_vector(new_notes_ordered, k_number_of_notes_for_chord);
+    std::vector<unsigned char> new_notes_ordered = get_most_significant_notes(chromagram_vector, chord);
 
     static std::vector<unsigned char> old_notes_ordered;
 
     void* midi_out_buffer = jack_port_get_buffer(midi_output_port_, number_of_frames);
     jack_midi_clear_buffer(midi_out_buffer);
 
-    for (unsigned int i : old_notes_ordered) {
-        unsigned char* buffer;
-        buffer = jack_midi_event_reserve(midi_out_buffer, 0, 3);
-        buffer[2] = 108;// velocity
-        buffer[1] = 60+i; // note starting with C4
-        buffer[0] = 0x80U; // note off
+    constexpr unsigned char midi_note_c4 = 60;
+
+    static unsigned char old_bass_note = 0;
+    unsigned char new_bass_note = 48+chord.rootNote;
+
+    send_all_notes_off(midi_out_buffer);
+
+    send_midi_note(midi_out_buffer, old_bass_note, false);
+
+    for (unsigned int note_number_in_octave : old_notes_ordered) {
+        send_midi_note(midi_out_buffer, midi_note_c4+note_number_in_octave, false);
     }
 
-    for (unsigned int i : new_notes_ordered) {
-        unsigned char* buffer;
-        buffer = jack_midi_event_reserve(midi_out_buffer, 0, 3);
-        buffer[2] = 108;// velocity
-        buffer[1] = 60+i; // note starting with C4
-        buffer[0] = 0x90U; // note on (note off is 0x80)
+    for (unsigned int note_number_in_octave : new_notes_ordered) {
+        send_midi_note(midi_out_buffer, midi_note_c4+note_number_in_octave);
     }
+
+    send_midi_note(midi_out_buffer, new_bass_note);
+
+    old_bass_note = new_bass_note;
 
     old_notes_ordered = new_notes_ordered;
+}
+
+void send_all_notes_off(void* midi_out_buffer)
+{
+    // @see https://forum.arduino.cc/t/midi-h-library-help-all-notes-off/193357/7
+    for (unsigned int i = 0; i<17; i++) {
+        unsigned char* buffer;
+        buffer = jack_midi_event_reserve(midi_out_buffer, 0, 3);
+
+        buffer[0] = 123;
+        buffer[1] = 0;
+        buffer[2] = i;
+    }
+}
+
+void send_midi_note(void* midi_out_buffer, unsigned int midi_number_in_octave, bool note_on)
+{
+    unsigned char* buffer;
+    buffer = jack_midi_event_reserve(midi_out_buffer, 0, 3);
+    buffer[0] = note_on ? 0x90 : 0x80; // note on (note off is 0x80)
+    buffer[1] = midi_number_in_octave;
+    buffer[2] = 108;// velocity
 }
 
 void processFrames(double* frames, jack_nframes_t number_of_frames)
@@ -102,14 +137,14 @@ void processFrames(double* frames, jack_nframes_t number_of_frames)
     if (chromagram.isReady()) {
         std::vector<double> chroma = chromagram.getChromagram();
 
-        write_midi_chord(chroma, number_of_frames);
-
         static ChordDetector chord_detector;
         chord_detector.detectChord(chroma);
 
-        Chord chord{chord_detector.rootNote, chord_detector.quality,
-                    chord_detector.intervals};
+        chord_recogniser::Chord chord{chord_detector.rootNote, chord_detector.quality,
+                                      chord_detector.intervals};
         chord_recogniser::notify_listener(chord);
+
+        write_midi_chord(chroma, chord, number_of_frames);
     }
 }
 
@@ -166,6 +201,7 @@ void connect_audio_backend(const std::string& client_name)
 
     chromagram.setSamplingFrequency(jack_get_sample_rate(jackClient));
     chromagram.setInputAudioFrameSize(jack_get_buffer_size(jackClient));
+    chromagram.setChromaCalculationInterval(6);
 
     while (true) {
         sleep(10000);
