@@ -24,7 +24,8 @@ namespace jack_backend {
 
 jack_client_t* jackClient;
 jack_port_t* audio_input_port;
-jack_port_t* midi_output_port_;
+jack_port_t* midi_chords_output_port_;
+jack_port_t* bass_note_output_port_;
 
 int frameSize = 512;
 int sampleRate = 44100;
@@ -81,7 +82,7 @@ number_of_frames
 
     static std::vector<unsigned char> old_notes_ordered;
 
-    void* midi_out_buffer = jack_port_get_buffer(midi_output_port_, number_of_frames);
+    void* midi_out_buffer = jack_port_get_buffer(midi_chords_output_port_, number_of_frames);
     jack_midi_clear_buffer(midi_out_buffer);
 
     constexpr unsigned char midi_note_c4 = 60;
@@ -102,6 +103,12 @@ number_of_frames
     }
 
     send_midi_note(midi_out_buffer, new_bass_note);
+
+    void* bass_out_buffer = jack_port_get_buffer(bass_note_output_port_, number_of_frames);
+    jack_midi_clear_buffer(bass_out_buffer);
+    send_all_notes_off(bass_out_buffer);
+    send_midi_note(bass_out_buffer, old_bass_note, false);
+    send_midi_note(bass_out_buffer, new_bass_note);
 
     old_bass_note = new_bass_note;
 
@@ -190,8 +197,12 @@ void connect_audio_backend(const std::string& client_name)
     audio_input_port = jack_port_register(jackClient, "audio-input", JACK_DEFAULT_AUDIO_TYPE,
             JackPortIsInput, 0);
 
-    midi_output_port_ =
+    midi_chords_output_port_ =
             jack_port_register(jackClient, "midi-chords-out", JACK_DEFAULT_MIDI_TYPE,
+                    JackPortIsOutput, 0);
+
+    bass_note_output_port_ =
+            jack_port_register(jackClient, "bass-chord-out", JACK_DEFAULT_MIDI_TYPE,
                     JackPortIsOutput, 0);
 
     if (jack_activate(jackClient)) {

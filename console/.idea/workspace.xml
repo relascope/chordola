@@ -1,0 +1,329 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="CMakePresetLoader">{
+  &quot;useNewFormat&quot;: true
+}</component>
+  <component name="CMakeReloadState">
+    <option name="reloaded" value="true" />
+  </component>
+  <component name="CMakeRunConfigurationManager">
+    <generated>
+      <config projectName="chord-recogniser-console" targetName="chord-recogniser-console" />
+    </generated>
+  </component>
+  <component name="CMakeSettings">
+    <configurations>
+      <configuration PROFILE_NAME="Debug" ENABLED="true" GENERATION_DIR="$PROJECT_DIR$" CONFIG_NAME="Debug" />
+      <configuration PROFILE_NAME="Release" ENABLED="true" CONFIG_NAME="Release" />
+    </configurations>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="d0d85543-1472-411b-a4b1-1fb0e93341b2" name="Changes" comment="some renamings according to stroustrup guidelines.">
+      <change beforePath="$PROJECT_DIR$/../lib/jack-backend/audiobackend.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/jack-backend/audiobackend.cpp" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ClangdSettings">
+    <option name="formatViaClangd" value="false" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
+  <component name="FormatOnSaveOptions">
+    <option name="myRunOnSave" value="true" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="KubernetesApiPersistence">
+    <option name="namespacesByContext">
+      <map>
+        <entry key="minikube" value="default" />
+      </map>
+    </option>
+  </component>
+  <component name="MacroExpansionManager">
+    <option name="directoryName" value="ildiq09o" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="OptimizeOnSaveOptions">
+    <option name="myRunOnSave" value="true" />
+  </component>
+  <component name="ProblemsViewState">
+    <option name="selectedTabId" value="ProjectErrors" />
+  </component>
+  <component name="ProjectApplicationVersion">
+    <option name="ide" value="CLion" />
+    <option name="majorVersion" value="2023" />
+    <option name="minorVersion" value="2" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;customColor&quot;: &quot;&quot;,
+  &quot;associatedIndex&quot;: 4
+}</component>
+  <component name="ProjectId" id="2T9FVMUbGKI5b6LPTqoMk1fiBj1" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;cf.advertisement.text.overridden&quot;: &quot;true&quot;,
+    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
+    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
+    &quot;code.cleanup.on.save&quot;: &quot;true&quot;,
+    &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/home/guru/dev/bootstrip&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.standard&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.standard&quot;: &quot;&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;clang-tidy&quot;,
+    &quot;rearrange.code.on.save&quot;: &quot;true&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;structure.view.defaults.are.configured&quot;: &quot;true&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  },
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;sqlite&quot;
+    ]
+  }
+}</component>
+  <component name="RunManager" selected="CMake Application.chord-recogniser-console">
+    <configuration name="chord-recogniser-console" type="CMakeRunConfiguration" factoryName="Application" REDIRECT_INPUT="false" ELEVATE="false" USE_EXTERNAL_CONSOLE="false" EMULATE_TERMINAL="false" PASS_PARENT_ENVS_2="true" PROJECT_NAME="chord-recogniser-console" TARGET_NAME="chord-recogniser-console" CONFIG_NAME="Debug" RUN_TARGET_PROJECT_NAME="chord-recogniser-console" RUN_TARGET_NAME="chord-recogniser-console">
+      <method v="2">
+        <option name="com.jetbrains.cidr.execution.CidrBuildBeforeRunTaskProvider$BuildBeforeRunTask" enabled="true" />
+      </method>
+    </configuration>
+    <configuration default="true" type="docker-deploy" factoryName="docker-image" temporary="true">
+      <deployment type="docker-image">
+        <settings />
+      </deployment>
+      <method v="2" />
+    </configuration>
+    <configuration name="chord-dev" type="docker-deploy" factoryName="docker-image" temporary="true" server-name="Docker">
+      <deployment type="docker-image">
+        <settings>
+          <option name="imageTag" value="clion/ubuntu/cpp-env:1.0" />
+          <option name="containerName" value="" />
+        </settings>
+      </deployment>
+      <method v="2" />
+    </configuration>
+    <list>
+      <item itemvalue="CMake Application.chord-recogniser-console" />
+      <item itemvalue="Docker.chord-dev" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Docker.chord-dev" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="d0d85543-1472-411b-a4b1-1fb0e93341b2" name="Changes" comment="" />
+      <created>1690447412022</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1690447412022</updated>
+      <workItem from="1690447413765" duration="4614000" />
+      <workItem from="1690452060312" duration="1902000" />
+      <workItem from="1690961465604" duration="1349000" />
+      <workItem from="1691002721523" duration="1364000" />
+      <workItem from="1691074479624" duration="1956000" />
+      <workItem from="1691265546507" duration="4214000" />
+      <workItem from="1691341393952" duration="608000" />
+      <workItem from="1691605078925" duration="647000" />
+      <workItem from="1691691860615" duration="1521000" />
+      <workItem from="1692453553587" duration="2305000" />
+      <workItem from="1692473640048" duration="1605000" />
+      <workItem from="1692812825050" duration="671000" />
+      <workItem from="1692822964891" duration="2172000" />
+      <workItem from="1692845360854" duration="295000" />
+      <workItem from="1692845677288" duration="360000" />
+      <workItem from="1692846046284" duration="1616000" />
+      <workItem from="1692847672761" duration="407000" />
+      <workItem from="1692848094076" duration="2979000" />
+      <workItem from="1693085773170" duration="764000" />
+      <workItem from="1693090041992" duration="11000" />
+      <workItem from="1693090065878" duration="12000" />
+      <workItem from="1693091242332" duration="355000" />
+      <workItem from="1693091816789" duration="10000" />
+      <workItem from="1693093415785" duration="120000" />
+      <workItem from="1693252455900" duration="2107000" />
+      <workItem from="1693947363184" duration="3616000" />
+      <workItem from="1694018364753" duration="1783000" />
+      <workItem from="1694126687061" duration="3226000" />
+      <workItem from="1694285417326" duration="1086000" />
+      <workItem from="1694287056409" duration="1570000" />
+      <workItem from="1694288629708" duration="999000" />
+      <workItem from="1694291455711" duration="1640000" />
+      <workItem from="1694364234477" duration="2702000" />
+      <workItem from="1694367580018" duration="144000" />
+      <workItem from="1694370527081" duration="2849000" />
+      <workItem from="1694374558666" duration="3828000" />
+      <workItem from="1694379938675" duration="2832000" />
+      <workItem from="1694383438596" duration="68427000" />
+      <workItem from="1694460961516" duration="395000" />
+      <workItem from="1694461370837" duration="10640000" />
+      <workItem from="1694599772181" duration="2163000" />
+      <workItem from="1695057785747" duration="306000" />
+      <workItem from="1695058107879" duration="1435000" />
+      <workItem from="1695383808976" duration="210000" />
+      <workItem from="1695403470533" duration="5972000" />
+    </task>
+    <task id="LOCAL-00001" summary="remove autoconnect, short chordnames">
+      <option name="closed" value="true" />
+      <created>1691003566974</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1691003566974</updated>
+    </task>
+    <task id="LOCAL-00002" summary="link to aj-snapshot">
+      <option name="closed" value="true" />
+      <created>1691003794497</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1691003794497</updated>
+    </task>
+    <task id="LOCAL-00003" summary="cleanup">
+      <option name="closed" value="true" />
+      <created>1691266143471</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1691266143472</updated>
+    </task>
+    <task id="LOCAL-00004" summary="cleanup">
+      <option name="closed" value="true" />
+      <created>1692849780253</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1692849780253</updated>
+    </task>
+    <task id="LOCAL-00005" summary="fix memory leaks">
+      <option name="closed" value="true" />
+      <created>1693950823199</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1693950823199</updated>
+    </task>
+    <task id="LOCAL-00006" summary="jack-midi-gateway scaffolding">
+      <option name="closed" value="true" />
+      <created>1694292577903</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1694292577903</updated>
+    </task>
+    <task id="LOCAL-00007" summary="namespace">
+      <option name="closed" value="true" />
+      <created>1694380707636</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1694380707637</updated>
+    </task>
+    <task id="LOCAL-00008" summary="custom compiler">
+      <option name="closed" value="true" />
+      <created>1694380715025</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1694380715025</updated>
+    </task>
+    <task id="LOCAL-00009" summary="dockerfile for docker build chain">
+      <option name="closed" value="true" />
+      <created>1694380732449</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1694380732449</updated>
+    </task>
+    <task id="LOCAL-00010" summary="generate midi-output from chromagram">
+      <option name="closed" value="true" />
+      <created>1694469688077</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1694469688078</updated>
+    </task>
+    <task id="LOCAL-00011" summary="some renamings according to stroustrup guidelines.">
+      <option name="closed" value="true" />
+      <created>1694471184324</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1694471184324</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+  <component name="VCPKGProject">
+    <isAutomaticEditVcpkgJson value="false" />
+    <isAutomaticCheckingOnLaunch value="false" />
+    <isAutomaticFoundErrors value="true" />
+    <isAutomaticFoundErrors value="true" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="remove autoconnect, short chordnames" />
+    <MESSAGE value="link to aj-snapshot" />
+    <MESSAGE value="cleanup" />
+    <MESSAGE value="fix memory leaks" />
+    <MESSAGE value="jack-midi-gateway scaffolding" />
+    <MESSAGE value="namespace" />
+    <MESSAGE value="custom compiler" />
+    <MESSAGE value="dockerfile for docker build chain" />
+    <MESSAGE value="generate midi-output from chromagram" />
+    <MESSAGE value="some renamings according to stroustrup guidelines." />
+    <option name="LAST_COMMIT_MESSAGE" value="some renamings according to stroustrup guidelines." />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <default-breakpoints>
+        <breakpoint enabled="true" type="javascript-exception" />
+        <breakpoint enabled="true" type="CidrExceptionBreakpoint" />
+      </default-breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
+  </component>
+</project>
