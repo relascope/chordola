@@ -22,7 +22,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="d0d85543-1472-411b-a4b1-1fb0e93341b2" name="Changes" comment="some renamings according to stroustrup guidelines.">
-      <change beforePath="$PROJECT_DIR$/../lib/jack-backend/audiobackend.cpp" beforeDir="false" afterPath="$PROJECT_DIR$/../lib/jack-backend/audiobackend.cpp" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/aws.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../lib/jack-backend/TestCases.puml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,7 +35,17 @@
   <component name="ClangdSettings">
     <option name="formatViaClangd" value="false" />
   </component>
+  <component name="CodyActiveAccount">
+    <option name="activeAccountId" value="c8c74f35-904b-4830-862c-f626038b1073" />
+  </component>
   <component name="ExecutionTargetManager" SELECTED_TARGET="CMakeBuildProfile:Debug" />
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="UML Sequence" />
+      </list>
+    </option>
+  </component>
   <component name="FormatOnSaveOptions">
     <option name="myRunOnSave" value="true" />
   </component>
@@ -75,6 +88,8 @@
   <component name="PropertiesComponent">{
   &quot;keyToString&quot;: {
     &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
+    &quot;DefaultPlantUmlFileTemplate&quot;: &quot;UML Sequence&quot;,
+    &quot;RunOnceActivity.CodyProjectSettingsMigration&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
@@ -86,6 +101,7 @@
     &quot;code.cleanup.on.save&quot;: &quot;true&quot;,
     &quot;dart.analysis.tool.window.visible&quot;: &quot;false&quot;,
     &quot;last_opened_file_path&quot;: &quot;/home/guru/dev/bootstrip&quot;,
+    &quot;network.radicle.jetbrains.radiclejetbrainsplugin.config.radSeedKey&quot;: &quot;http://localhost:8080&quot;,
     &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.standard&quot;: &quot;true&quot;,
     &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
@@ -189,6 +205,13 @@
       <workItem from="1695058107879" duration="1435000" />
       <workItem from="1695383808976" duration="210000" />
       <workItem from="1695403470533" duration="5972000" />
+      <workItem from="1695550394847" duration="1500000" />
+      <workItem from="1695554858770" duration="1472000" />
+      <workItem from="1695564435260" duration="2268000" />
+      <workItem from="1695574686725" duration="200000" />
+      <workItem from="1695574918560" duration="272000" />
+      <workItem from="1695597678852" duration="755000" />
+      <workItem from="1696958170381" duration="792000" />
     </task>
     <task id="LOCAL-00001" summary="remove autoconnect, short chordnames">
       <option name="closed" value="true" />
