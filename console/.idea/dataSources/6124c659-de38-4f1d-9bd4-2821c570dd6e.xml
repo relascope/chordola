@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataSource name="2022-database.sqlite">
-  <database-model serializer="dbm" dbms="SQLITE" family-id="SQLITE" format-version="4.49">
+  <database-model serializer="dbm" dbms="SQLITE" family-id="SQLITE" format-version="4.50">
     <root id="1"/>
     <collation id="2" parent="1" name="BINARY"/>
     <collation id="3" parent="1" name="NOCASE"/>
@@ -444,8 +444,7 @@
     </routine>
     <schema id="177" parent="1" name="main">
       <Current>1</Current>
-      <IntrospectionTimestamp>2023-09-06.18:44:28.860</IntrospectionTimestamp>
-      <LocalIntrospectionTimestamp>2023-09-06.16:44:28</LocalIntrospectionTimestamp>
+      <LastIntrospectionLocalTimestamp>2023-09-06.16:44:28</LastIntrospectionLocalTimestamp>
     </schema>
     <argument id="178" parent="16">
       <ArgumentDirection>R</ArgumentDirection>
