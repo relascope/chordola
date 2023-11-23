@@ -1,14 +1,8 @@
-# chord-recogniser by DOJOY - the way of joy
+# chordola
 
-Realtime musical chord recognition
-
-Supported Audio-Backends
-------------------------
-jack
-
-UI
---
-console
+- Realtime musical chord recognition
+- Chord notes output per MIDI
+- Music can come from any client supporting JACK Audio Connection Kit
 
 
 Build
