@@ -9,7 +9,7 @@ Build
 =====
 Get the Source
 --------------
-! This codebase uses git submodule(s)
+! This codebase uses git rsubmodule(s)
 
     git clone --recursive https://github.com/relascope/chord-rec.git
 
