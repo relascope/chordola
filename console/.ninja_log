@@ -1,0 +1,10 @@
+# ninja log v5
+21	1159	1698500983571764236	CMakeFiles/chord-recogniser-console.dir/home/guru/dev/chord-rec/lib/jack-backend/chord.cpp.o	f4a7f97cfc74e98f
+20	2213	1698500984624771238	CMakeFiles/chord-recogniser-console.dir/home/guru/dev/chord-rec/lib/jack-backend/audiobackend.cpp.o	51ffb8f62a8d0561
+0	40	1700779407676865979	build.ninja	1689a1f617d98d5b
+21	755	1698500983167761550	CMakeFiles/chord-recogniser-console.dir/home/guru/dev/chord-rec/lib/Chord-Detector-and-Chromagram/src/Chromagram.cpp.o	8b0bfda7914f6f08
+2213	2390	1698500984800772408	chord-recogniser-console	b69a138ff33d3927
+0	2	0	clean	553b80f781956b04
+20	723	1698500983135761337	CMakeFiles/chord-recogniser-console.dir/home/guru/dev/chord-rec/lib/Chord-Detector-and-Chromagram/src/ChordDetector.cpp.o	822de4c3abc32d8f
+22	1229	1698500983641764701	CMakeFiles/chord-recogniser-console.dir/home/guru/dev/chord-rec/lib/jack-backend/chord_listener.cpp.o	42b4b3e8e3b7f838
+19	1405	1698500983816765865	CMakeFiles/chord-recogniser-console.dir/main.cpp.o	1cff248314a9a9f0

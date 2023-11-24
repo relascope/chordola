@@ -1,12 +1,11 @@
 #ifndef AUDIOBACKEND_H
 #define AUDIOBACKEND_H
 
-#include "chord.h"
+#include <string>
 
-typedef void (*ChordListener)(Chord);
+namespace jack_backend {
 
-void connectAudioBackend(const std::string &clientName);
+void connect_audio_backend(const std::string& client_name);
 
-void registerChordListener(ChordListener);
-
+}
 #endif // AUDIOBACKEND_H

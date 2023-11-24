@@ -3,9 +3,12 @@
 #include <string>
 #include <stdexcept>
 
+namespace jack_backend {
+
 class AudioBackendException final : public std::runtime_error {
-public:
+ public:
   AudioBackendException(const std::string &msg) : runtime_error{msg} {}
 };
 
+}
 #endif //CHORD_RECOGNISER_CONSOLE_AUDIOBACKENDEXCEPTION_H
