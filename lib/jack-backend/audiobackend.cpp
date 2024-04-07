@@ -19,6 +19,7 @@
 #include <thread>
 #include <unistd.h>
 #include <vector>
+#include <algorithm>
 
 namespace jack_backend {
 
