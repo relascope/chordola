@@ -1,9 +1,10 @@
 # chordola
 
 - Realtime musical chord recognition
-- Chord notes output per MIDI
 - Music can come from any client supporting JACK Audio Connection Kit
 
+- Linux-version
+- MacOS in progress
 
 Build
 =====
@@ -26,15 +27,16 @@ Prerequisites
 Build
 -----
 
-    cd console
-    cmake .
+    mkdir build
+    cd build
+    cmake ..
     make
 
 Usage
 =====
 Start the Jack Audio Engine (e.g. with QJackCtl)
 
-    ./chord-recogniser
+    ./chordola
 
 Connect a JACK audio source (Graph of QJackCtl)
 
@@ -42,13 +44,6 @@ DOYJOY!
 
 If it is boring to connect every day, try [aj-snapshot](https://sourceforge.net/projects/aj-snapshot/).
 
-# Roadmap - DOJOY
-
-- more backends
-- MIDI output so that you kind of have a chord (maybe arp) which you can connect to your DAW or a synthesiser 
-- mobile app
-- write chords to file
-- Graphical user interface
 
 # Credits
 
