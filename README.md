@@ -12,11 +12,11 @@ Get the Source
 --------------
 ! This codebase uses git rsubmodule(s)
 
-    git clone --recursive https://github.com/relascope/chord-rec.git
+    git clone --recursive https://github.com/relascope/chordola.git
 
 or
 
-    git clone https://github.com/relascope/chord-rec.git
+    git clone https://github.com/relascope/chordola.git
     git submodule update --init --recursive
 
 
@@ -34,13 +34,21 @@ Build
 
 Usage
 =====
+PipeWire
+--------
+connect with qpwgraph
+
+Jack
+----
 Start the Jack Audio Engine (e.g. with QJackCtl)
 
     ./chordola
 
 Connect a JACK audio source (Graph of QJackCtl)
 
-DOYJOY!
+
+
+DoJoy!
 
 If it is boring to connect every day, try [aj-snapshot](https://sourceforge.net/projects/aj-snapshot/).
 
