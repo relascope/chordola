@@ -1,10 +1,21 @@
-# chordola
+# ChordOla!
 
-- Realtime musical chord recognition
+- almost Realtime musical chord recognition
 - Music can come from any client supporting JACK Audio Connection Kit
 
 - Linux-version
 - MacOS in progress
+
+Why?
+====
+- [Ultimate Guitar](https://www.ultimate-guitar.com/) if somebody already wrote the chords down
+- [Chordify](https://chordify.net/) for any song, but not realtime
+- [Sonic Visualiser](https://www.sonicvisualiser.org/) with [Chordino and NNLS Chroma Plugin](https://www.matthiasmauch.net/) for any song, but not realtime. Complexer chords detected, loop sections. 
+- [Chord ai](https://chordai.net/) on smartphone has instant chord recognition, but you cannot select the audio source for the chord recognition. Using microphone with unknown songs works well until you do not try to play along with accoustic instruments. With some configuration, the MacOS software can recognize chords from a different source - e.g. your browser - with Blackhole. This can isolate the chord recognition and it is possible to play along. Free version only detects basic chords.
+
+
+ChordOla! can detect chords from any source almost realtime. So she is the optimal companion to just practice along your running playlist or movies - without interference. 
+
 
 Build
 =====
@@ -22,11 +33,14 @@ or
 
 Prerequisites
 -------------
-    apt install cmake make libjack-jackd2-dev libfftw3-dev -y
+Make sure to have the following packages installed: build-essential cmake make libjack-jackd2-dev libfftw3-dev
+
+You can do so on Debian-based systems with: 
+
+    sudo apt install build-essential cmake make libjack-jackd2-dev libfftw3-dev -y
 
 Build
 -----
-
     mkdir build
     cd build
     cmake ..
@@ -34,17 +48,21 @@ Build
 
 Usage
 =====
-PipeWire
---------
-connect with qpwgraph
 
-Jack
-----
+ChordOla! uses JACK as a sound server. 
+
+Easiest way to start JACK is to use QJackCtl. You can install it with: 
+
+    sudo apt install qjackctl
+
 Start the Jack Audio Engine (e.g. with QJackCtl)
 
-    ./chordola
+Run ChordOla! 
 
-Connect a JACK audio source (Graph of QJackCtl)
+    ./chordola
+    
+
+Connect a JACK audio source (Graph of QJackCtl or with qpwgraph)
 
 
 
