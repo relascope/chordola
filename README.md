@@ -65,6 +65,26 @@ Run ChordOla!
 Connect a JACK audio source (Graph of QJackCtl or with qpwgraph)
 
 
+MacOS
+=====
+Download Jack (include QJackCtl)
+
+Install Blackhole
+
+Set sound device to Blackhole in QJackCtl and start Jack
+
+Create Multi-Output-Device with Blackhole and Speakers
+
+Set sound output to Multi-Output-Device (e.g. with AudioPick for browser or system-wide)
+
+    brew install cmake jack fftw
+    
+    
+ToDo
+-----
+CMakeLists.txt points directly to homebrew include in opt
+
+
 
 DoJoy!
 

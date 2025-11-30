@@ -19,9 +19,12 @@ add_executable(chordola console/main.cpp lib/jack-backend/audiobackend.cpp lib/j
         lib/jack-backend/chord_listener.cpp
         lib/jack-backend/chord_listener.h)
 
+
+include_directories(${FFTW3_INCLUDE_DIRS})
+
+target_link_libraries(chordola ${FFTW3_LIBRARIES})   
 target_link_libraries(chordola -ljack)
 target_link_libraries(chordola -lfftw3)
-target_link_libraries(chordola -latomic)
 
 find_package (Threads REQUIRED)
 
