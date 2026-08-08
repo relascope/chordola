@@ -1,4 +1,6 @@
-# ChordOla!
+# abandoned
+
+# ChordOla! only for Jack-Backend. Search for Chordola-JUCE
 
 - almost Realtime musical chord recognition
 - Music can come from any client supporting JACK Audio Connection Kit
